@@ -62,12 +62,20 @@ export async function updateInvoice(id: string, formData: FormData) {
       message: '請求書更新に失敗しました。',
     };
   }
-
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
 
 export async function deleteInvoice(id: string) {
-  await sql`DELETE FROM invoices WHERE id = ${id}`;
-  revalidatePath('/dashboard/invoices');
+  try {
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+    revalidatePath('/dashboard/invoices');
+    return {
+      message: '請求書を削除しました。',
+    };
+  } catch (error) {
+    return {
+      message: '請求書の削除に失敗しました。',
+    };
+  }
 }
