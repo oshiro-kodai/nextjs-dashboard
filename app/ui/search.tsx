@@ -5,19 +5,19 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
 export default function Search({ placeholder }: { placeholder: string }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  const searchParams = useSearchParams(); // 戻り値は`URLSearchParams`オブジェクトで、URLのクエリパラメータを操作するためのメソッドが含まれています。
+  const pathname = usePathname(); //  現在のURLのパス名を取得します。戻り値は文字列です。
   const { replace } = useRouter();
 
   const handleSearch = useDebouncedCallback((term) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams); // URLSearchParamsはURLのクエリパラメータを操作するためのインターフェース。
     params.set('page', '1');
     if (term) {
       params.set('query', term);
     } else {
       params.delete('query');
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`); // 上記の処理結果を受け、履歴エントリを新しいURLに書き換える。
   }, 300);
 
   return (
