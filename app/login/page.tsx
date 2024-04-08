@@ -1,5 +1,14 @@
 import AcmeLogo from '@/app/ui/acme-logo';
 import LoginForm from '@/app/ui/login-form';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Acme Dashboard',
+    default: 'Login',
+  },
+  description: 'The official Next.js Learn Dashboard built with App Router.',
+};
 
 export default function LoginPage() {
   return (
